@@ -132,7 +132,7 @@ class scoring : public players
 		int bowling4runs=0;
 		int bpbol4=0;
 		
-		float over=0.0;
+		float over=0;
 		
 		int wicketstaken=0;
 		//////////////////////////////////////////////////////
@@ -142,13 +142,14 @@ class scoring : public players
 		
 		
 	public:
-		void summary(string batsmanname,  int batsmanscore, int batsmanballs,string bowlername, int bowlerruns, int ballbowled,string teamname, int teamscore,int wickets)
+		void summary(string batsmanname,  int batsmanscore, int batsmanballs,string bowlername, int bowlerruns, int ballbowled,string teamname, int teamscore,int wickets,double overs)
 		{
 			cout<<"------------------BATTING SUMMARY----------------------------"<<endl;
 	    	cout<<batsmanname<<"  "<<batsmanscore<<"("<<batsmanballs<<")"<<endl;
 	    	cout<<bowlername<<"  "<<bowlerruns<<"("<<ballbowled<<")"<<endl;
 	    	cout<<"----------TEAM SCORE--------------------"<<endl;
 	    	cout<<teamname<<"   "<<teamscore<<" - "<<wickets<<endl;
+	    	cout<<"overs= "<<overs<<endl;
 		}
 	void batsmanstats1()
     {
@@ -185,11 +186,23 @@ class scoring : public players
 		
 		void BFI()
 		{
-			
 		
-			while(over<=3.0&&wicketstaken<4){
+		
+			while(over<3&&wicketstaken<4){
 			
-			
+				over=(over+0.1);
+				if(over>=0.6)
+				{
+					over=1;
+				}
+				else if(over>=1.6)
+				{
+					over=2;
+				}
+				else if(over>=2.6)
+				{
+				 over = 3;
+				}
 		batsmanstats1();
 	    bowlerstats1();	
 	    score();
@@ -202,7 +215,7 @@ class scoring : public players
 	    	bpbol0=bpbol0+1;
 	    	teamscore=teamscore+1;
 	    	wicketstaken= wicketstaken+0;
-	    	summary(team1players[0], bat0score, bpbat0, team2players[0], bowling0runs, bpbol0, teamnames[0],teamscore,wicketstaken);
+	    	summary(team1players[0], bat0score, bpbat0, team2players[0], bowling0runs, bpbol0, teamnames[0],teamscore,wicketstaken,over);
 	    	
 		}
 		else if (bat1==1&&bal1==0&&scr==1)
@@ -213,7 +226,7 @@ class scoring : public players
 	    	bpbol0=bpbol0+1;
 	    	teamscore=teamscore+1;
 	    	wicketstaken= wicketstaken+0;
-	    	summary(team1players[1], bat1score, bpbat1, team2players[0], bowling0runs, bpbol0, teamnames[0],teamscore,wicketstaken);
+	    	summary(team1players[1], bat1score, bpbat1, team2players[0], bowling0runs, bpbol0, teamnames[0],teamscore,wicketstaken ,over);
 		}
 		else if (bat1==2&&bal1==0&&scr==1)
 		{
@@ -224,7 +237,7 @@ class scoring : public players
 	    	teamscore=teamscore+1;
 	    	
 	    	wicketstaken= wicketstaken+0;
-	    	summary(team1players[2], bat2score, bpbat2, team2players[0], bowling0runs, bpbol0, teamnames[0],teamscore,wicketstaken);
+	    	summary(team1players[2], bat2score, bpbat2, team2players[0], bowling0runs, bpbol0, teamnames[0],teamscore,wicketstaken ,over);
 		}
 		else if (bat1==3&&bal1==0&&scr==1)
 		{
@@ -236,7 +249,7 @@ class scoring : public players
 	    	
 	    	
 	    	wicketstaken= wicketstaken+0;
-	    	summary(team1players[3], bat3score, bpbat3, team2players[0], bowling0runs, bpbol0, teamnames[0],teamscore,wicketstaken);
+	    	summary(team1players[3], bat3score, bpbat3, team2players[0], bowling0runs, bpbol0, teamnames[0],teamscore,wicketstaken,over);
 		}
 		
 	    else if (bat1==4&&bal1==0&&scr==1)
@@ -249,7 +262,7 @@ class scoring : public players
 	     
 	    	
 	    	wicketstaken= wicketstaken+0;
-	    	summary(team1players[4], bat4score, bpbat4, team2players[0], bowling0runs, bpbol0, teamnames[0],teamscore,wicketstaken);
+	    	summary(team1players[4], bat4score, bpbat4, team2players[0], bowling0runs, bpbol0, teamnames[0],teamscore,wicketstaken,over);
 		}
 		
 //		if (bat1==0&&bal1==0&&scr==2)
@@ -295,9 +308,7 @@ class scoring : public players
 	    	bowling0runs=bowling0runs+0;
 	    	bpbol0=bpbol0+1;
 	    	teamscore=teamscore+0;
-	    	
-	    	wicketstaken= wicketstaken+1;
-	    	summary(team1players[0], bat0score, bpbat0, team2players[0], bowling0runs, bpbol0, teamnames[0],teamscore,wicketstaken);
+	    	summary(team1players[0], bat0score, bpbat0, team2players[0], bowling0runs, bpbol0, teamnames[0],teamscore,wicketstaken,over);
 		}
 //		if (bat1==1&&bal1==0&&scr==6)
 //		if (bat1==2&&bal1==0&&scr==6)
@@ -316,7 +327,7 @@ class scoring : public players
 	    	cout<<teamnames[0]<<teamscore<<endl;
 	    	
 	    	wicketstaken= wicketstaken+0;
-	    	summary(team1players[0], bat0score, bpbat0, team2players[0], bowling0runs, bpbol0, teamnames[0],teamscore,wicketstaken);
+	    	summary(team1players[0], bat0score, bpbat0, team2players[0], bowling0runs, bpbol0, teamnames[0],teamscore,wicketstaken,over);
 	    	
 		}
 //		if (bat1==1&&bal1==0&&scr==7)
@@ -324,11 +335,11 @@ class scoring : public players
 //		if (bat1==3&&bal1==0&&scr==7)
 //	if (bat1==4&&bal1==0&&scr==7)
 
-if(over==0.6||(over==1.6)||(over==0.6))
-        {
-        	over = over+1;
-		}
-		over=over+0.1;
+//if(over==0.6||(over=1.6)||(over==0.6))
+//        {
+//        	over = over+1;
+//		}
+		
 
 
 }
@@ -341,6 +352,8 @@ cout<<"------------------FIRST INNING ENDED---------------------";
 class secondinn: public scoring
 {
 	protected:
+		int bat2;
+		int bal2;
 		int I2bat0score=0; 
 		int I2bpbat0=0;
 		
@@ -380,6 +393,26 @@ class secondinn: public scoring
 		int I2wicketstaken=0;
 		
 	public:
+			void batsmanstats2()
+    {
+    	cout<<"Which batsman is batting?"<<endl;
+    	cout<<" 0.  "<<team2players[0];
+    	cout<<" 1.  "<<team2players[1];
+    	cout<<" 2.  "<<team2players[2];
+    	cout<<" 3.  "<<team2players[3];
+    	cout<<" 4.  "<<team2players[4]<<endl;
+    	cin>>bat2;
+    }
+    void bowlerstats2()
+    {
+    	cout<<"Which bowler is bowling?"<<endl;
+    	cout<<" 0.  "<<team1players[0];
+    	cout<<" 1.  "<<team1players[1];
+    	cout<<" 2.  "<<team1players[2];
+    	cout<<" 3.  "<<team1players[3];
+    	cout<<" 4.  "<<team1players[4]<<endl;
+    	cin>>bal2;
+    }
 		
 		void result()
 		{
@@ -403,12 +436,25 @@ class secondinn: public scoring
 			while(I2over<=3.0&&I2wicketstaken<4)
 			{
 			
+				I2over=(I2over+0.1);
+				if(I2over>=0.6)
+				{
+					I2over=1;
+				}
+				else if(I2over>=1.6)
+				{
+					I2over=2;
+				}
+				else if(I2over>=2.6)
+				{
+				 I2over = 3;
+				}
 			
-		batsmanstats1();
-	    bowlerstats1();	
+		batsmanstats2();
+	    bowlerstats2();	
 	    score();
 	    
-	    if (bat1==0&&bal1==0&&scr==1)
+	    if (bat2==0&&bal2==0&&scr==1)
 	    {
 	    	I2bat0score=I2bat0score+1;
 	    	I2bpbat0=I2bpbat0+1;
@@ -418,10 +464,10 @@ class secondinn: public scoring
 	    	
 	    	
 	    		I2wicketstaken= I2wicketstaken+0;
-	    	summary(team2players[0], I2bat0score, I2bpbat0, team1players[0], I2bowling0runs, I2bpbol0, teamnames[1],I2teamscore,I2wicketstaken);
+	    	summary(team2players[0], I2bat0score, I2bpbat0, team1players[0], I2bowling0runs, I2bpbol0, teamnames[1],I2teamscore,I2wicketstaken,I2over);
 	    	
 		}
-		else if (bat1==1&&bal1==0&&scr==1)
+		else if (bat2==1&&bal2==0&&scr==1)
 		{
 		  I2bat1score=I2bat1score+1;
 	    	I2bpbat1=I2bpbat1+1;
@@ -432,9 +478,9 @@ class secondinn: public scoring
 	    	cout<<team1players[0]<<I2bowling0runs<<I2bpbol0<<endl;
 	    	cout<<teamnames[1]<<I2teamscore<<endl;
 	    	I2wicketstaken= I2wicketstaken+0;
-	    	summary(team2players[1], I2bat1score, I2bpbat1, team1players[0], I2bowling0runs, I2bpbol0, teamnames[1],I2teamscore,I2wicketstaken);
+	    	summary(team2players[1], I2bat1score, I2bpbat1, team1players[0], I2bowling0runs, I2bpbol0, teamnames[1],I2teamscore,I2wicketstaken,I2over);
 		}
-		else if (bat1==2&&bal1==0&&scr==1)
+		else if (bat2==2&&bal2==0&&scr==1)
 		{
 		   I2bat2score=I2bat2score+1;
 	    	I2bpbat2=I2bpbat2+1;
@@ -443,9 +489,9 @@ class secondinn: public scoring
 	    	I2teamscore=I2teamscore+1;
 	    	
 	    	I2wicketstaken= I2wicketstaken+0;
-	    	summary(team2players[2], I2bat2score, I2bpbat2, team1players[0], I2bowling0runs, I2bpbol0, teamnames[1],I2teamscore,I2wicketstaken);
+	    	summary(team2players[2], I2bat2score, I2bpbat2, team1players[0], I2bowling0runs, I2bpbol0, teamnames[1],I2teamscore,I2wicketstaken,I2over);
 		}
-		else if (bat1==3&&bal1==0&&scr==1)
+		else if (bat2==3&&bal2==0&&scr==1)
 		{
 		   I2bat3score=I2bat3score+1;
 	    	I2bpbat3=I2bpbat3+1;
@@ -455,9 +501,9 @@ class secondinn: public scoring
 	    
 	    	
 	    	I2wicketstaken= I2wicketstaken+1;
-	    	summary(team2players[3], I2bat3score, I2bpbat3, team1players[0], I2bowling0runs, I2bpbol0, teamnames[1],I2teamscore,I2wicketstaken);
+	    	summary(team2players[3], I2bat3score, I2bpbat3, team1players[0], I2bowling0runs, I2bpbol0, teamnames[1],I2teamscore,I2wicketstaken,I2over);
 		}
-	    else if (bat1==4&&bal1==0&&scr==1)
+	    else if (bat2==4&&bal2==0&&scr==1)
 		{
 		 I2bat4score=I2bat4score+1;
 	    	I2bpbat4=I2bpbat4+1;
@@ -465,11 +511,11 @@ class secondinn: public scoring
 	    	I2bpbol0=I2bpbol0+1;
 	    	I2teamscore=I2teamscore+1;
 	    	
-	    	I2wicketstaken= I2wicketstaken+0.5;
-	    	summary(team2players[4], I2bat4score, I2bpbat4, team1players[0], I2bowling0runs, I2bpbol0, teamnames[1],I2teamscore,I2wicketstaken);
+	    	I2wicketstaken= I2wicketstaken+0;
+	    	summary(team2players[4], I2bat4score, I2bpbat4, team1players[0], I2bowling0runs, I2bpbol0, teamnames[1],I2teamscore,I2wicketstaken,I2over);
 		}
 		
-//		if (bat1==0&&bal1==0&&scr==2)
+//		if (bat2==0&&bal2==0&&scr==2)
 //{
 //	    	bat0score=bat0score+2;
 //	    	bpbat0=bpbat0+1;
@@ -482,10 +528,10 @@ class secondinn: public scoring
 //	    	
 //		}
 
-//		if (bat1==1&&bal1==0&&scr==2)
-//		if (bat1==2&&bal1==0&&scr==2)
-//		if (bat1==3&&bal1==0&&scr==2)
-//		if (bat1==4&&bal1==0&&scr==2)
+//		if (bat2==1&&bal2==0&&scr==2)
+//		if (bat2==2&&bal2==0&&scr==2)
+//		if (bat2==3&&bal2==0&&scr==2)
+//		if (bat2==4&&bal2==0&&scr==2)
 //		
 //		
 //		if (bat1==0&&bal1==0&&scr==3)
@@ -508,15 +554,14 @@ class secondinn: public scoring
 //		
 		if (bat1==0&&bal1==0&&scr==6)
 {
-	    	wicketstaken = wicketstaken+1;
+	    	I2wicketstaken = I2wicketstaken+1;
 	    	bowling0runs=bowling0runs+0;
 	    	bpbol0=bpbol0+1;
 	    	teamscore=teamscore+0;
 	    	cout<<team1players[0]<<bat0score<<bpbat0<<endl;
 	    	cout<<team2players[0]<<bowling0runs<<bpbol0<<endl;
 	    	cout<<teamnames[0]<<teamscore<<endl;
-	    	I2wicketstaken= I2wicketstaken+1;
-	    	summary(team2players[0], I2bat0score, I2bpbat0, team1players[0], I2bowling0runs, I2bpbol0, teamnames[1],I2teamscore,I2wicketstaken);
+	    	summary(team2players[0], I2bat0score, I2bpbat0, team1players[0], I2bowling0runs, I2bpbol0, teamnames[1],I2teamscore,I2wicketstaken,I2over);
 	    	
 		}
 //		if (bat1==1&&bal1==0&&scr==6)
@@ -535,7 +580,7 @@ class secondinn: public scoring
 	    	cout<<team2players[0]<<bowling0runs<<bpbol0<<endl;
 	    	cout<<teamnames[0]<<teamscore<<endl;
 	    	I2wicketstaken= I2wicketstaken+0;
-	    	summary(team2players[0], I2bat0score, I2bpbat0, team1players[0], I2bowling0runs, I2bpbol0, teamnames[1],I2teamscore,I2wicketstaken);
+	    	summary(team2players[0], I2bat0score, I2bpbat0, team1players[0], I2bowling0runs, I2bpbol0, teamnames[1],I2teamscore,I2wicketstaken,I2over);
 	    	
 		}
 //		if (bat1==1&&bal1==0&&scr==7)
